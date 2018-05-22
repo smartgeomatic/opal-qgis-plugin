@@ -9,10 +9,10 @@
         <qgis_minimum_version>2.0.0</qgis_minimum_version>
         <qgis_maximum_version>2.18.0</qgis_maximum_version>
         <homepage><![CDATA[http://smartgeomatic.pl/]]></homepage>
-        <file_name>smartgeomatic-opal-qgis-plugin-c8fd434bfcc1.zip</file_name>
+        <file_name>opal-qgis-plugin-latest.zip</file_name>
         <icon></icon>
         <author_name><![CDATA[Smartgeomatic]]></author_name>
-        <download_url>https://bitbucket.org/smartgeomatic/opal-qgis-plugin/get/latest.zip</download_url>
+        <download_url>https://github.com/smartgeomatic/opal-qgis-plugin/archive/latest.zip</download_url>
         <uploaded_by><![CDATA[smartgeomatic]]></uploaded_by>
         <create_date>2018-05-01T09:43:57.251757</create_date>
         <update_date>2018-05-01T09:43:57.251757</update_date>
