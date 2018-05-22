@@ -7,7 +7,7 @@
         <version>0.0.1</version>
         <trusted>False</trusted>
         <qgis_minimum_version>2.0.0</qgis_minimum_version>
-        <qgis_maximum_version>2.18.0</qgis_maximum_version>
+        <qgis_maximum_version>2.99.0</qgis_maximum_version>
         <homepage><![CDATA[http://smartgeomatic.pl/]]></homepage>
         <file_name><![CDATA[opal-qgis-plugin-latest.zip]]></file_name>
         <icon></icon>
