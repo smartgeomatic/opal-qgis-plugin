@@ -47,7 +47,7 @@ class TilesetCommonDialog(QDialog,TilesetDialogHelper):
         button_remove.clicked.connect(self.remove_nmap)
 
         tileset_label = QLabel(self)
-        tileset_label.setText("NMap tileset:")
+        tileset_label.setText("Zestaw kafelków w NMaps:")
         tileset_label.move(10, 1)
 
         item_info = QLabel(self)
