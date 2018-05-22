@@ -23,11 +23,11 @@ class TilesetListItem(QWidget):
         self.textUpQLabel.setText(text)
 
     def setTextMiddle(self, text):
-        text = "Warstwa qgis: " + text 
+        text = "Warstwa Qgis: " + text
         self.textMiddleQLabel.setText(text)
 
     def setTextDown(self, text):
-        text = "Zestaw kafelków: ".decode("utf-8") + text 
+        text = "Zestaw kafelków w NMaps: ".decode("utf-8") + text
         self.textDownQLabel.setText(text)
 
     def getTextDown(self):

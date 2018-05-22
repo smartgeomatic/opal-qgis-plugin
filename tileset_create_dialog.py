@@ -53,18 +53,18 @@ class TilesetCreateDialog(QDialog,TilesetDialogHelper):
     def create_nmap(self):
         layer = self.select_layer()
         if not layer:
-            self.parent.bar.pushCritical("Sewer NMap", "Proszę wybrać warstwę".decode('utf-8'))
+            self.parent.bar.pushCritical("Serwer NMap", "Proszę wybrać warstwę".decode('utf-8'))
             return False
         try:
            tmp_path = LayerExporter(layer).export_source()
         except:
-            self.parent.bar.pushCritical("Sewer NMap", "Eksport pliku tymczasowego nie powiódł się".decode('utf-8'))
+            self.parent.bar.pushCritical("Serwer NMap", "Eksport pliku tymczasowego nie powiódł się".decode('utf-8'))
 
         try:
             self.send_tileset(tmp_path, 'create')
-            self.parent.bar.pushSuccess("Sewer NMap", "Eksport pliku powiódł się".decode('utf-8'))
+            self.parent.bar.pushSuccess("Serwer NMap", "Eksport pliku powiódł się".decode('utf-8'))
         except:
-            self.parent.bar.pushCritical("Sewer NMap", "Eksport pliku nie powiódł się".decode('utf-8'))
+            self.parent.bar.pushCritical("Serwer NMap", "Eksport pliku nie powiódł się".decode('utf-8'))
         self.close()
 
 

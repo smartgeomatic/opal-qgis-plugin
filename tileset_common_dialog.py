@@ -42,7 +42,7 @@ class TilesetCommonDialog(QDialog,TilesetDialogHelper):
         button_replace.move(100, 160)
         button_replace.clicked.connect(self.replace_nmap)
 
-        button_remove = QPushButton("Usuń zestaw w Nmap".decode("utf-8"), self)
+        button_remove = QPushButton("Usuń zestaw w NMap".decode("utf-8"), self)
         button_remove.move(215, 160)
         button_remove.clicked.connect(self.remove_nmap)
 
@@ -69,7 +69,7 @@ class TilesetCommonDialog(QDialog,TilesetDialogHelper):
             if index >= 0:
                 self.cb.setCurrentIndex(index)
 
-        self.setWindowTitle("Konfiguracja zestawu")
+        self.setWindowTitle("Konfiguracja powiązania")
         self.setFixedSize(600, 200)
         self.setWindowModality(Qt.ApplicationModal)
         self.exec_()
@@ -95,22 +95,22 @@ class TilesetCommonDialog(QDialog,TilesetDialogHelper):
         self.close()
 
     def replace_nmap(self):
-        self.parent.bar.pushSuccess("Sewer NMap", "Połczono".decode('utf-8') + " " + self.item + " z " + self.cb.currentText())
+        self.parent.bar.pushSuccess("Serwer NMap", "Połączono".decode('utf-8') + " " + self.item + " z " + self.cb.currentText())
         layer = self.select_layer()
         if not layer:
-            self.parent.bar.pushCritical("Sewer NMap", "Proszę wybrac warstwę".decode('utf-8'))
+            self.parent.bar.pushCritical("Serwer NMap", "Proszę wybrać warstwę".decode('utf-8'))
             return False
 
         try:
             tmp_path = LayerExporter(layer).export_source()
         except:
-            self.parent.bar.pushCritical("Sewer NMap", "Eksport pliku tymczasowego nie powiódł się".decode('utf-8'))
+            self.parent.bar.pushCritical("Serwer NMap", "Eksport pliku tymczasowego nie powiódł się".decode('utf-8'))
 
         try:
             self.send_tileset(tmp_path, 'replace')
-            self.parent.bar.pushSuccess("Sewer NMap", "Eksport pliku powiódł się".decode('utf-8'))
+            self.parent.bar.pushSuccess("Serwer NMap", "Eksport pliku powiódł się".decode('utf-8'))
         except:
-            self.parent.bar.pushCritical("Sewer NMap", "Eksport pliku nie powiódł się".decode('utf-8'))
+            self.parent.bar.pushCritical("Serwer NMap", "Eksport pliku nie powiódł się".decode('utf-8'))
         self.tileset_to_layer()
         self.close()
 
@@ -123,9 +123,9 @@ class TilesetCommonDialog(QDialog,TilesetDialogHelper):
             try:
                 til = Tilesets(self.parent.nm_token)
                 til.remove(self.item)
-                self.parent.bar.pushSuccess("Sewer NMap", "Usunięcie zestawu powiodło się".decode('utf-8'))
+                self.parent.bar.pushSuccess("Serwer NMap", "Usunięcie zestawu powiodło się".decode('utf-8'))
             except:
-                self.parent.bar.pushCritical("Sewer NMap", "Usunięcie zestawu nie powiodło się".decode('utf-8'))
+                self.parent.bar.pushCritical("Serwer NMap", "Usunięcie zestawu nie powiodło się".decode('utf-8'))
             self.parent.nmap_connect()
             self.close()
         else:

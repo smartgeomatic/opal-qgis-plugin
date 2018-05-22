@@ -207,7 +207,7 @@ class NmapsEngine:
         self.dlg.listWidget.clear()
         self.dlg.show()
         self.visible = True
-        #self.bar.pushInfo("Sewer NMap", "Aby pobrać listę tilesetów musisz kliknąć Połącz".decode('utf-8'))
+        #self.bar.pushInfo("Serwer NMap", "Aby pobrać listę tilesetów musisz kliknąć Połącz".decode('utf-8'))
         # Run the dialog event loop
         self.nmap_connect()
         result = self.dlg.exec_()
@@ -221,11 +221,11 @@ class NmapsEngine:
     def nmap_connect(self):
         if self.visible:
             self.iface.mainWindow().statusBar().clear()
-            self.bar.pushInfo("Sewer NMap","Łączenie z serwerem NMap".decode("utf-8"))
+            self.bar.pushInfo("Serwer NMap","Łączenie z serwerem NMap".decode("utf-8"))
             try:
                 token = Authetication(ApiKey(), 'studio').authenticate()
             except:
-                self.bar.pushCritical("Sewer NMap", "Nie udało się połączyć".decode("utf-8"))
+                self.bar.pushCritical("Serwer NMap", "Nie udało się połączyć".decode("utf-8"))
                 tkd = TokenDialog(self)
                 tkd.dlg()
                 return False
@@ -235,11 +235,11 @@ class NmapsEngine:
             try:
                 tilesets = Tilesets(self.nm_token).list()
             except:
-                self.bar.pushCritical("Sewer NMap", "Nie mogę pobrać tilestów".decode("utf-8"))
+                self.bar.pushCritical("Serwer NMap", "Nie mogę pobrać danych".decode("utf-8"))
                 return False
 
             self.bar.clearWidgets()
-            self.bar.pushSuccess("Sewer NMap", "Połączono".decode('utf-8'))
+            self.bar.pushSuccess("Serwer NMap", "Połączono".decode('utf-8'))
             self.iface.mainWindow().statusBar().showMessage("Połączono".decode("utf-8"))
 
             tl = pickle_db.load_obj()
@@ -260,7 +260,7 @@ class NmapsEngine:
                 self.dlg.listWidget.setItemWidget(tileset_list_item_widget, tileset_list_item)
 
             self.bar.clearWidgets()
-            self.bar.pushSuccess("Sewer NMap", "Połączono i pobrano listę tilsetów".decode('utf-8'))
+            self.bar.pushSuccess("Serwer NMap", "Połączono i pobrano listę zestawów".decode('utf-8'))
 
     def item_click(self, item):
         current = item.listWidget().itemWidget(item)
