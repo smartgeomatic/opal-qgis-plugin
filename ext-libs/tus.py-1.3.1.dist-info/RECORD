@@ -1,0 +1,13 @@
+tus.py,sha256=GEUun_ZTuM1hCpdzisXycoNpmF_CDEbnlpva0v1NHTo,6345
+tus.py-1.3.1.dist-info/DESCRIPTION.rst,sha256=OCTuuN6LcWulhHS3d5rfjdsQtW22n7HENFRh6jC6ego,10
+tus.py-1.3.1.dist-info/METADATA,sha256=s8yWKJgoG-tG6YVQf1A7odXJX7QJ9M5Myyzb8zfSLaQ,746
+tus.py-1.3.1.dist-info/RECORD,,
+tus.py-1.3.1.dist-info/WHEEL,sha256=BtVfdXUcEYLcFjOkbIrCFRyXU4qszVPt-E9o3RWkSNw,93
+tus.py-1.3.1.dist-info/entry_points.txt,sha256=LSZwE9NuXczyyl2XGwFIedzdwTO-T2iXBT9xEqAoUvM,77
+tus.py-1.3.1.dist-info/metadata.json,sha256=dk7aOQbOhxRYo1ivHNQ6R6e2YR6wSK_kuGHiDlyy8Jg,1102
+tus.py-1.3.1.dist-info/top_level.txt,sha256=2Zu_87tbiqG8BIf3ahZge-7y4_sfVgncagQ3hsor0Kw,4
+tus.py-1.3.1.dist-info/zip-safe,sha256=AbpHGcgLb-kRsJGnwFEktk7uzpZOCcBY74-YBdrKVGs,1
+../../../bin/tus-upload,sha256=8XUlAI0NIDFRpg84DM3RGG6cm0cpxD0N7a4w-zqlYk4,218
+../../../bin/tus-resume,sha256=LlkxDNJOQxWY1ymNv9ayHaze4zATmimYq8vlVxixcjk,218
+tus.py-1.3.1.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+tus.pyc,,

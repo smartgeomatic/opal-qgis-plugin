@@ -1,0 +1,5 @@
+api.key
+db.pkl
+*.pyc
+.idea/
+tmp/
