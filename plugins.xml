@@ -12,7 +12,7 @@
         <file_name><![CDATA[opal-qgis-plugin-latest.zip]]></file_name>
         <icon></icon>
         <author_name><![CDATA[Smartgeomatic]]></author_name>
-        <download_url><![CDATA[https://github.com/smartgeomatic/opal-qgis-plugin/archive/latest.zip]]></download_url>
+        <download_url><![CDATA[https://codeload.github.com/smartgeomatic/opal-qgis-plugin/zip/latest]]></download_url>
         <uploaded_by><![CDATA[smartgeomatic]]></uploaded_by>
         <create_date>2018-05-01T09:43:57.251757</create_date>
         <update_date>2018-05-01T09:43:57.251757</update_date>
