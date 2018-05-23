@@ -31,12 +31,12 @@ class NmRequests(object):
             return None
 
     def request(self, method):
-        try:
-            res = getattr(requests, method)(url=self._endpoint,
+        #try:
+        res = getattr(requests, method)(url=self._endpoint,
                                         data=self._body,
                                         headers=self._headers,
                                             verify=False)
-            return res
-        except requests.exceptions.RequestException as e:  # This is the correct syntax
-            raise Exception("Can't connect")
+        return res
+        #except requests.exceptions.RequestException as e:  # This is the correct syntax
+        #    raise Exception("Can't connect")
 

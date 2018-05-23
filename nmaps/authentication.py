@@ -12,11 +12,11 @@ class Authetication(NmRequests):
         self.addHeader('X-AUTH-TOKEN',self._apikey)
         self.setBody({"clientId": self._client_id})
         req = self.request('put')
-        if req.status_code == 200:
-            res = self.responseToDict(req)
-            return res.get('token')
-        else:
-            raise Exception("Authentication failed")
+        #if req.status_code == 200:
+        res = self.responseToDict(req)
+        return res.get('token')
+        #else:
+        #    raise Exception("Authentication failed")
 
 
 

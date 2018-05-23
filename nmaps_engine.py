@@ -222,13 +222,13 @@ class NmapsEngine:
         if self.visible:
             self.iface.mainWindow().statusBar().clear()
             self.bar.pushInfo("Serwer NMap","Łączenie z serwerem NMap".decode("utf-8"))
-            try:
-                token = Authetication(ApiKey(), 'qgis-plugin').authenticate()
-            except:
-                self.bar.pushCritical("Serwer NMap", "Nie udało się połączyć".decode("utf-8"))
-                tkd = TokenDialog(self)
-                tkd.dlg()
-                return False
+            #try:
+            token = Authetication(ApiKey(), 'qgis-plugin').authenticate()
+            #except:
+            #    self.bar.pushCritical("Serwer NMap", "Nie udało się połączyć".decode("utf-8"))
+            #    tkd = TokenDialog(self)
+            #    tkd.dlg()
+            #    return False
 
             self.nm_token = Token(token)
 
