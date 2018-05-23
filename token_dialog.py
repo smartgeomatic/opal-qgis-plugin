@@ -13,7 +13,7 @@ class TokenDialog:
     def dlg(self):
         self.parent.bar.clearWidgets()
         self.parent.bar.pushCritical("Serwer NMap",
-                              "Błąd połączenia sprawdź poprawność API KEY i spróbuj ponownie".decode('utf-8'))
+                              "Błąd połączenia sprawdź poprawność API KEY i spróbuj ponownie".decode('utf-8'))
         self.parent.iface.mainWindow().statusBar().showMessage("Wprowadź klucz API".decode("utf-8"))
 
         self.d = QDialog()

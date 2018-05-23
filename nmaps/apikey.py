@@ -13,7 +13,7 @@ class ApiKey:
 
     def set(self, apikey):
         apikey_file = open(self._apikey_file, 'w')
-        apikey_file.write(apikey)
+        apikey_file.write(apikey.strip())
         apikey_file.close()
 
     def read(self):
