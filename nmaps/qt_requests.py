@@ -47,13 +47,20 @@ class QtRequests(object):
 
         databyte = QByteArray()
         databyte.append(self.body())
+        try:
+            self.manager = QNetworkAccessManager()
+            res = self.manager.put(request, databyte)
+            self.loop = QEventLoop()
+            self.manager.finished.connect(self.loop.exit)
+            self.loop.exec_()
+            status_code = res.attribute(QNetworkRequest.HttpStatusCodeAttribute)
+            bytarray = res.readAll()
+            content = str(bytarray)
+            if status_code == 200:
+                return content
+            else:
+                print res.error()
+        except:
+            print res.error()
 
-        self.manager = QNetworkAccessManager()
-        res = self.manager.put(request, databyte)
-        self.loop = QEventLoop()
-        self.manager.finished.connect(self.loop.exit)
-        self.loop.exec_()
-        bytarray = res.readAll()
-        content = str(bytarray)
-        return content
 
