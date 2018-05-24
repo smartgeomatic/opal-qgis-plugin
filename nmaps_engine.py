@@ -22,7 +22,7 @@
 """
 import sys
 import os
-sys.path.insert(0,os.path.join(os.path.dirname(__file__),"ext-libs/"))
+#sys.path.insert(0,os.path.join(os.path.dirname(__file__),"ext-libs/"))
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.core import QgsMessageLog
