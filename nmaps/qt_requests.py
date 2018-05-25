@@ -39,6 +39,8 @@ class QtRequests(object):
         except:
             return None
 
+    def _sslError(self, reply, errors):
+        reply.ignoreSslErrors()
 
     def request(self, method):
         request = QNetworkRequest(self.formatUrl())
@@ -49,6 +51,7 @@ class QtRequests(object):
         databyte.append(self.body())
         try:
             self.manager = QNetworkAccessManager()
+            self.manager.sslErrors.connect(self._sslError)
             res = self.manager.put(request, databyte)
             self.loop = QEventLoop()
             self.manager.finished.connect(self.loop.exit)
