@@ -225,13 +225,13 @@ class NmapsEngine:
         if self.visible:
             self.iface.mainWindow().statusBar().clear()
             self.bar.pushInfo("Serwer NMap","Łączenie z serwerem NMap".decode("utf-8"))
-            #try:
-            token = Authetication(ApiKey(), 'qgis-plugin').authenticate()
-            #except:
-            #    self.bar.pushCritical("Serwer NMap", "Nie udało się połączyć".decode("utf-8"))
-            #    tkd = TokenDialog(self)
-            #    tkd.dlg()
-            #    return False
+            try:
+                token = Authetication(ApiKey(), 'qgis-plugin').authenticate()
+            except:
+                self.bar.pushCritical("Serwer NMap", "Nie udało się połączyć".decode("utf-8"))
+                tkd = TokenDialog(self)
+                tkd.dlg()
+                return False
 
             self.nm_token = Token(token)
 
@@ -256,6 +256,8 @@ class NmapsEngine:
                 tileset_list_item.setTextDown(tileset.get('name'))
                 if tileset.get('id') in tl and tl[tileset.get('id')] in avialble_layers:
                     tileset_list_item.setTextMiddle(tl[tileset.get('id')])
+                if tileset.get('name') in tl and tl[tileset.get('name')] in avialble_layers:
+                    tileset_list_item.setTextMiddle(tl[tileset.get('name')])
                 tileset_list_item.setIcon(None)
                 tileset_list_item_widget = QListWidgetItem(self.dlg.listWidget)
                 tileset_list_item_widget.setSizeHint(tileset_list_item.sizeHint())

@@ -46,13 +46,13 @@ class TilesetCommonDialog(QDialog,TilesetDialogHelper):
         button_remove.move(215, 160)
         button_remove.clicked.connect(self.remove_nmap)
 
-        tileset_label = QLabel(self)
-        tileset_label.setText("Zestaw kafelków w NMaps:")
-        tileset_label.move(10, 1)
+        #tileset_label = QLabel(self)
+        #tileset_label.setText("Zestaw kafelków w NMaps:".decode("utf-8"))
+        #tileset_label.move(10, 1)
 
         item_info = QLabel(self)
         item_info.setText(item_label)
-        item_info.move(90, 1)
+        item_info.move(10, 1)
 
         connect_label = QLabel(self)
         connect_label.setText("Powiąż z warstwą qgis:".decode("utf-8"))
@@ -69,7 +69,7 @@ class TilesetCommonDialog(QDialog,TilesetDialogHelper):
             if index >= 0:
                 self.cb.setCurrentIndex(index)
 
-        self.setWindowTitle("Konfiguracja powiązania")
+        self.setWindowTitle("Konfiguracja powiązania".decode('utf-8'))
         self.setFixedSize(600, 200)
         self.setWindowModality(Qt.ApplicationModal)
         self.exec_()

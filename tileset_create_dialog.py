@@ -7,10 +7,11 @@ from qgis.gui import QgsMessageBar
 from nmaps.layer_exporter import LayerExporter
 from nmaps.tilesets import Tilesets
 from tileset_dialog_helper import TilesetDialogHelper
+from nmaps import pickle_db
 
 import os
 import time
-import pickle
+
 
 class TilesetCreateDialog(QDialog,TilesetDialogHelper):
 
@@ -60,12 +61,25 @@ class TilesetCreateDialog(QDialog,TilesetDialogHelper):
         except:
             self.parent.bar.pushCritical("Serwer NMap", "Eksport pliku tymczasowego nie powiódł się".decode('utf-8'))
 
-        try:
-            self.send_tileset(tmp_path, 'create')
-            self.parent.bar.pushSuccess("Serwer NMap", "Eksport pliku powiódł się".decode('utf-8'))
-        except:
-            self.parent.bar.pushCritical("Serwer NMap", "Eksport pliku nie powiódł się".decode('utf-8'))
+        #try:
+        self.send_tileset(tmp_path, 'create')
+        self.tileset_to_layer(os.path.basename(tmp_path))
+            #self.parent.bar.pushSuccess("Serwer NMap", "Eksport pliku powiódł się".decode('utf-8'))
+        #except:
+            #self.parent.bar.pushCritical("Serwer NMap", "Eksport pliku nie powiódł się".decode('utf-8'))
         self.close()
+
+
+    def tileset_to_layer(self, tmp_path):
+        tl = pickle_db.load_obj()
+        layer = self.select_layer()
+        print layer.name(), tmp_path
+        if not tl:
+            pickle_db.save_obj({tmp_path: layer.name()})
+        else:
+            tl.update({tmp_path: layer.name()})
+            pickle_db.save_obj(tl)
+        self.parent.nmap_connect()
 
 
 
