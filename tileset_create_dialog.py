@@ -31,9 +31,9 @@ class TilesetCreateDialog(QDialog,TilesetDialogHelper):
 
         self.completed = 0
 
-        button_add = QPushButton("Dodaj do NMap".decode("utf-8"), self)
-        button_add.move(10, 160)
-        button_add.clicked.connect(self.create_nmap)
+        self.button_add = QPushButton("Dodaj do NMap".decode("utf-8"), self)
+        self.button_add.move(10, 160)
+        self.button_add.clicked.connect(self.create_nmap)
 
         choose_label = QLabel(self)
         choose_label.setText("Wybierz warstwę qgis:".decode("utf-8"))
@@ -52,6 +52,7 @@ class TilesetCreateDialog(QDialog,TilesetDialogHelper):
 
 
     def create_nmap(self):
+        self.button_add.setEnabled(False)
         layer = self.select_layer()
         if not layer:
             self.parent.bar.pushCritical("Serwer NMap", "Proszę wybrać warstwę".decode('utf-8'))
@@ -61,13 +62,14 @@ class TilesetCreateDialog(QDialog,TilesetDialogHelper):
         except:
             self.parent.bar.pushCritical("Serwer NMap", "Eksport pliku tymczasowego nie powiódł się".decode('utf-8'))
 
-        #try:
-        self.send_tileset(tmp_path, 'create')
-        self.tileset_to_layer(os.path.basename(tmp_path))
-            #self.parent.bar.pushSuccess("Serwer NMap", "Eksport pliku powiódł się".decode('utf-8'))
-        #except:
-            #self.parent.bar.pushCritical("Serwer NMap", "Eksport pliku nie powiódł się".decode('utf-8'))
+        try:
+            self.send_tileset(tmp_path, 'create')
+            self.tileset_to_layer(os.path.basename(tmp_path))
+            self.parent.bar.pushSuccess("Serwer NMap", "Eksport pliku powiódł się".decode('utf-8'))
+        except:
+            self.parent.bar.pushCritical("Serwer NMap", "Eksport pliku nie powiódł się".decode('utf-8'))
         self.close()
+        self.button_add.setEnabled(True)
 
 
     def tileset_to_layer(self, tmp_path):

@@ -58,6 +58,31 @@ class Tilesets(NmRequests):
             job = res.get('tilingJobs')[0]
             return job.get(property)
         elif req.status_code != 500:
-            return 100
+            return job.get(property)
         else:
             raise Exception("Can't get jobs")
+
+
+    def  jobs(self):
+        self._endpoint = self._baseurl + 'tiling/'
+        self._endpoint = self._endpoint + self.token.data('u')
+        req = self.request('get')
+        if req.status_code == 200:
+            res = self.responseToDict(req)
+            jobs = res.get('tilingJobs')
+            return jobs
+        elif req.status_code != 500:
+            return jobs
+        else:
+            raise Exception("Can't get jobs")
+
+    def hide(self, job_id):
+        self._endpoint = self._baseurl + 'tiling/'
+        self._endpoint = self._endpoint + self.token.data('u') + '/' + job_id
+        self.setBody({'hidden': True})
+        req = self.request('put')
+        if req.status_code == 200:
+            res = self.responseToDict(req)
+        else:
+            print res
+            raise Exception("Can't hide notification")

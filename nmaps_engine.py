@@ -213,6 +213,16 @@ class NmapsEngine:
         #self.bar.pushInfo("Serwer NMap", "Aby pobrać listę tilesetów musisz kliknąć Połącz".decode('utf-8'))
         # Run the dialog event loop
         self.nmap_connect()
+        tileset_req = Tilesets(self.nm_token)
+        notifications = tileset_req.jobs()
+        for notification in notifications:
+            if notification.get('status') == 'processing':
+                self.bar.pushInfo("Serwer NMap", "Kafelkowanie ".decode('utf-8') + notification.get('originalname'))
+            if notification.get('status') == 'success':
+                self.bar.pushSuccess("Serwer NMap", "Ukończono ".decode('utf-8') + notification.get('originalname'))
+            if notification.get('status') == 'error':
+                self.bar.pushCritical("Serwer NMap", "Błąd ".decode('utf-8') + notification.get('originalname'))
+            tileset_req.hide(notification.get('job_id'))
         result = self.dlg.exec_()
         # See if OK was pressed
         if result:
