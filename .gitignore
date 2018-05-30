@@ -1,4 +1,3 @@
 api.key
 *.pyc
 .idea/
-tmp/
