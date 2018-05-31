@@ -35,7 +35,7 @@ class TilesetDialogHelper:
 
     def upload_tileset(self,tp):
         tus = NmTus(nm_config.tileset_upload_url, tp)
-        tus.addHeader('X-Auth-Token', self.parent.nm_token.raw())
+        tus.add_header('X-Auth-Token', self.parent.nm_token.raw())
         tus.upload_callback(self.progress_callback)
         tus.upload()
         return tus

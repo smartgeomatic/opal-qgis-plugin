@@ -1,5 +1,6 @@
 import jwt
 
+
 class Token:
 
     def __init__(self, token):

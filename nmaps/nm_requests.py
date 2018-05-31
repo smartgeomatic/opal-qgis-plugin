@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 import requests, json
-from qgis.core import QgsMessageLog
-
 
 class NmRequests(object):
 
@@ -11,19 +9,30 @@ class NmRequests(object):
         self._endpoint = None
         self._baseurl  = 'https://api.smartgeomatic.eu/api/v1/'
 
-    def addHeader(self, key, value):
-        self._headers[key] = value
+    @property
+    def endpoint(self):
+        return self._endpoint
 
-    def setBody(self, body):
-        self._body = json.dumps(body)
+    @endpoint.setter
+    def endpoint(self, endpoint):
+        self._endpoint = self._baseurl + endpoint
 
+    @property
     def headers(self):
         return self._headers
 
+    def add_header(self, key, value):
+        self._headers[key] = value
+
+    @property
     def body(self):
         return self._body
 
-    def responseToDict(self, resp):
+    @body.setter
+    def body(self, body):
+        self._body = json.dumps(body)
+
+    def response_dict(self, resp):
         try:
             result = json.loads(resp.text)
             return result
@@ -32,9 +41,9 @@ class NmRequests(object):
 
     def request(self, method):
         try:
-            res = getattr(requests, method)(url=self._endpoint,
-                                        data=self._body,
-                                        headers=self._headers)
+            res = getattr(requests, method)(url=self.endpoint,
+                                        data=self.body,
+                                        headers=self.headers)
             return res
 
         except requests.exceptions.RequestException as e:
