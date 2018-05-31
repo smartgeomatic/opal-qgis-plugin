@@ -1,55 +1,40 @@
 # -*- coding: utf-8 -*-
-from nm_tus import NmTus
-from qgis.core import QgsMessageLog, QgsVectorFileWriter
-import os, pprint, re, zipfile, glob
+import imp, os
 
-class LayerExporter:
+class LayerExporter(object):
 
     def __init__(self, layer):
         self.layer = layer
+        self._find_type()
 
-    def export_source(self):
+    def _find_type(self):
 
-        if "csv" in self.layer.source() and "csv" in self.layer.metadata():
+        if self._source_name("csv") and self._matadata_type("csv"):
+            self._exporter = "csv"
 
-            file_search = re.search('file\:\/\/(.*)\?', self.layer.source(), re.IGNORECASE)
-            if file_search:
-                path = str(file_search.group(1))
-                is_win_path = re.search('\/[A-Z]:', path)
-                if is_win_path:
-                    return path[1:]
-                else:
-                    return path
-            else:
-                return self.layer.source()
+        elif self._source_name("json") and self._matadata_type("json"):
+            self._exporter = "geojson"
 
-        elif "json" in self.layer.source() and "json" in self.layer.metadata():
-            return self.layer.source().split("|")[0]
-
-        elif "Shapefile" in self.layer.metadata():
-            path = self.layer.source()
-            file_template = '*.*'
-
-            if os.path.isfile(path):
-                filename_w_ext = os.path.basename(path)
-                file_template, file_extension = os.path.splitext(filename_w_ext)
-                path = os.path.dirname(path)
-
-            zip_name  = self.layer.name()
-            zip_path  = os.path.join(os.path.dirname(__file__), "..", "tmp", zip_name + ".zip")
-            abs_src   = os.path.abspath(path)
-            zf = zipfile.ZipFile(zip_path, "w")
-            for root, dirs, files in os.walk(path):
-                for filename in files:
-                    absname = os.path.abspath(os.path.join(root, filename))
-                    arcname = absname[len(abs_src) + 1:]
-                    if file_template is '*.*' or file_template in arcname:
-                        zf.write(absname, arcname)
-
-            zf.close()
-            return zip_path
+        elif self._matadata_type("Shapefile"):
+            self._exporter = "shape"
 
         else:
-            return False
+            raise Exception("Not a proper layer type")
 
+    def _source_name(self, name):
+        return name in self.layer.source()
+
+    def _matadata_type(self, type):
+        return type in self.layer.metadata()
+
+
+    def export_source(self):
+        try:
+            module = '%s_exporter' % (self._exporter)
+            exporter = imp.load_source(module, os.path.join(os.path.dirname(os.path.abspath(__file__)), '%s.py' % (module)))
+            exporter_class = getattr(exporter, 'LayerExport')
+            exporter_instance = exporter_class(self.layer)
+            return exporter_instance.get_source()
+        except:
+            raise Exception("Can't find exporter")
 

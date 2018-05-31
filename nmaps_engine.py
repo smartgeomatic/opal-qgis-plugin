@@ -36,7 +36,7 @@ import os.path
 
 from nmaps.token import Token
 from nmaps.apikey import ApiKey
-from nmaps.authentication import Authetication
+from nmaps.authentication import Authentication
 from nmaps.tilesets import Tilesets
 from token_dialog import TokenDialog
 from tileset_common_dialog import TilesetCommonDialog
@@ -210,19 +210,20 @@ class NmapsEngine:
         self.dlg.listWidget.clear()
         self.dlg.show()
         self.visible = True
-        #self.bar.pushInfo("Serwer NMap", "Aby pobrać listę tilesetów musisz kliknąć Połącz".decode('utf-8'))
         # Run the dialog event loop
         self.nmap_connect()
         tileset_req = Tilesets(self.nm_token)
         notifications = tileset_req.jobs()
         for notification in notifications:
             if notification.get('status') == 'processing':
-                self.bar.pushInfo("Serwer NMap", "Kafelkowanie ".decode('utf-8') + notification.get('originalname'))
+                self.bar.pushInfo("Serwer NMap", "Kafelkowanie  %s %d %%".decode('utf-8')
+                                  % (notification.get('originalname'), notification.get('progress')))
             if notification.get('status') == 'success':
-                self.bar.pushSuccess("Serwer NMap", "Ukończono ".decode('utf-8') + notification.get('originalname'))
+                self.bar.pushSuccess("Serwer NMap", "Ukończono %s".decode('utf-8') % (notification.get('originalname')))
+                tileset_req.hide(notification.get('job_id'))
             if notification.get('status') == 'error':
-                self.bar.pushCritical("Serwer NMap", "Błąd ".decode('utf-8') + notification.get('originalname'))
-            tileset_req.hide(notification.get('job_id'))
+                self.bar.pushCritical("Serwer NMap", "Błąd %s".decode('utf-8') % (notification.get('originalname')))
+                tileset_req.hide(notification.get('job_id'))
         result = self.dlg.exec_()
         # See if OK was pressed
         if result:
@@ -236,14 +237,13 @@ class NmapsEngine:
             self.iface.mainWindow().statusBar().clear()
             self.bar.pushInfo("Serwer NMap","Łączenie z serwerem NMap".decode("utf-8"))
             try:
-                token = Authetication(ApiKey(), 'qgis-plugin').authenticate()
+                token = Authentication(ApiKey(), 'qgis-plugin').authenticate()
+                self.nm_token = Token(token)
             except:
                 self.bar.pushCritical("Serwer NMap", "Nie udało się połączyć".decode("utf-8"))
                 tkd = TokenDialog(self)
                 tkd.dlg()
                 return False
-
-            self.nm_token = Token(token)
 
             try:
                 tilesets = Tilesets(self.nm_token).list()
@@ -264,10 +264,10 @@ class NmapsEngine:
                 tileset_list_item = TilesetListItem()
                 tileset_list_item.setTextUp(tileset.get('id'))
                 tileset_list_item.setTextDown(tileset.get('name'))
-                if tileset.get('id') in tl and tl[tileset.get('id')] in avialble_layers:
-                    tileset_list_item.setTextMiddle(tl[tileset.get('id')])
                 if tileset.get('name') in tl and tl[tileset.get('name')] in avialble_layers:
                     tileset_list_item.setTextMiddle(tl[tileset.get('name')])
+                if tileset.get('id') in tl and tl[tileset.get('id')] in avialble_layers:
+                    tileset_list_item.setTextMiddle(tl[tileset.get('id')])
                 tileset_list_item.setIcon(None)
                 tileset_list_item_widget = QListWidgetItem(self.dlg.listWidget)
                 tileset_list_item_widget.setSizeHint(tileset_list_item.sizeHint())

@@ -58,7 +58,7 @@ class TilesetCreateDialog(QDialog,TilesetDialogHelper):
             self.parent.bar.pushCritical("Serwer NMap", "Proszę wybrać warstwę".decode('utf-8'))
             return False
         try:
-           tmp_path = LayerExporter(layer).export_source()
+            tmp_path = LayerExporter(layer).export_source()
         except:
             self.parent.bar.pushCritical("Serwer NMap", "Eksport pliku tymczasowego nie powiódł się".decode('utf-8'))
 

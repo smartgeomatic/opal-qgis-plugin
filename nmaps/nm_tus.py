@@ -33,7 +33,7 @@ class NmTus:
         self._upload_callback = None
         self._headers         = {}
 
-    def addHeader(self, key, value):
+    def add_header(self, key, value):
         self._headers[key] = value
 
     def _get_file_size(self,f):
