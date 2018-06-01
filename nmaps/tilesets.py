@@ -19,7 +19,7 @@ class Tilesets(NmRequests):
             raise Exception("Can't get tileset list")
 
     def replace(self, tileset_id, file_name, file_id):
-        self.endpoint = 'tiling/%s?replace=%d' % (self.token.data('u'), tileset_id)
+        self.endpoint = 'tiling/%s?replace=%s' % (self.token.data('u'), tileset_id)
         self.body = {'name': file_name, 'id': file_id}
         req = self.request('post')
         if req.status_code == 200:
@@ -30,6 +30,7 @@ class Tilesets(NmRequests):
     def create(self, file_name, file_id):
         self.endpoint = 'tiling/%s' % (self.token.data('u'))
         self.body = {'name': file_name, 'id': file_id}
+        print self.endpoint
         req = self.request('post')
         if req.status_code == 200:
             res = self.response_dict(req)

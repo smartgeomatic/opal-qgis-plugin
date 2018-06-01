@@ -24,12 +24,17 @@ class TilesetDialogHelper:
 
         return layer
 
+    def _is_valid_layer(self, layer):
+        if "csv" in layer.metadata() or "Shapefile" in layer.metadata() or "json" in layer.metadata():
+            return True
+
     def get_layers(self):
         layers = self.parent.iface.legendInterface().layers()
         layer_list = []
         layer_list.append("")
         for layer in layers:
-            layer_list.append(layer.name())
+            if self._is_valid_layer(layer):
+                layer_list.append(layer.name())
 
         return layer_list
 
