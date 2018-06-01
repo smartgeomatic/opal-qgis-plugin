@@ -59,6 +59,12 @@ class TilesetCommonDialog(QDialog,TilesetDialogHelper):
         self.cb.clear()
         self.cb.addItems(self.get_layers())
         tl = pickle_db.load_obj()
+        item_name = item_label.split(":")[1].strip()
+        if item_name in tl:
+            layer = tl[item_name]
+            index = self.cb.findText(layer, Qt.MatchFixedString)
+            if index >= 0:
+                self.cb.setCurrentIndex(index)
         if self.item in tl:
             layer = tl[self.item]
             index = self.cb.findText(layer, Qt.MatchFixedString)

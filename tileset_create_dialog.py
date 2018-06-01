@@ -53,6 +53,7 @@ class TilesetCreateDialog(QDialog,TilesetDialogHelper):
 
     def create_nmap(self):
         self.button_add.setEnabled(False)
+        self.button_add.setDisabled(True)
         layer = self.select_layer()
         if not layer:
             self.parent.bar.pushCritical("Serwer NMap", "Proszę wybrać warstwę".decode('utf-8'))
@@ -69,13 +70,13 @@ class TilesetCreateDialog(QDialog,TilesetDialogHelper):
         except:
             self.parent.bar.pushCritical("Serwer NMap", "Eksport pliku nie powiódł się".decode('utf-8'))
         self.close()
+        self.button_add.setDisabled(False)
         self.button_add.setEnabled(True)
 
 
     def tileset_to_layer(self, tmp_path):
         tl = pickle_db.load_obj()
         layer = self.select_layer()
-        print layer.name(), tmp_path
         if not tl:
             pickle_db.save_obj({tmp_path: layer.name()})
         else:
