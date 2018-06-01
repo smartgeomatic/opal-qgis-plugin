@@ -57,6 +57,8 @@ class TilesetCreateDialog(QDialog,TilesetDialogHelper):
         layer = self.select_layer()
         if not layer:
             self.parent.bar.pushCritical("Serwer NMap", "Proszę wybrać warstwę".decode('utf-8'))
+            self.button_add.setDisabled(False)
+            self.button_add.setEnabled(True)
             return False
         try:
             tmp_path = LayerExporter(layer).export_source()
