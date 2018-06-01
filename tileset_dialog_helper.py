@@ -60,4 +60,3 @@ class TilesetDialogHelper:
                 self.progress_callback(tiling, "Kafelkowanie:".decode("utf-8"))
                 time.sleep(self.job_progres_request_iterval)
         self.parent.nmap_connect()
-c
