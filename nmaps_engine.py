@@ -187,6 +187,7 @@ class NmapsEngine:
         self.dlg.listWidget.itemDoubleClicked.connect(self.item_click)
         self.bar = QgsMessageBar(self.dlg)
         QObject.connect(self.iface.mapCanvas(), SIGNAL("layersChanged()"), self.nmap_connect)
+        QgsMapLayerRegistry.instance().layersWillBeRemoved["QStringList"].connect(self.remove_layer)
         self.bar.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
         self.bar.move(20,1)
         self.bar.setFixedSize(692, 40)
@@ -232,6 +233,17 @@ class NmapsEngine:
             self.visible = False
             pass
 
+    def remove_layer(self, lyr_id):
+        lyr = QgsMapLayerRegistry.instance().mapLayer(lyr_id[0])  # returns QgsMapLayer pointer
+        lyr_name = lyr.name()
+        tl = pickle_db.load_obj()
+        for k,v in tl.items():
+            if v == lyr_name:
+                del tl[k]
+                
+        pickle_db.save_obj(tl)
+
+
     def nmap_connect(self):
         if self.visible:
             self.iface.mainWindow().statusBar().clear()
@@ -273,6 +285,7 @@ class NmapsEngine:
                 tileset_list_item_widget.setSizeHint(tileset_list_item.sizeHint())
                 self.dlg.listWidget.addItem(tileset_list_item_widget)
                 self.dlg.listWidget.setItemWidget(tileset_list_item_widget, tileset_list_item)
+
 
             self.bar.clearWidgets()
             self.bar.pushSuccess("Serwer NMap", "Połączono i pobrano listę zestawów".decode('utf-8'))
