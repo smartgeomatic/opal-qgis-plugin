@@ -43,6 +43,7 @@ from tileset_common_dialog import TilesetCommonDialog
 from tileset_create_dialog import TilesetCreateDialog
 from tileset_list_item import TilesetListItem
 from nmaps import pickle_db
+import time
 
 class NmapsEngine:
     """QGIS Plugin Implementation."""
@@ -240,8 +241,7 @@ class NmapsEngine:
         for k,v in tl.items():
             if v == lyr_name:
                 del tl[k]
-                
-        pickle_db.save_obj(tl)
+                pickle_db.save_obj(tl)
 
 
     def nmap_connect(self):
