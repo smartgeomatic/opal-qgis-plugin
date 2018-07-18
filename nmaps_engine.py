@@ -235,13 +235,15 @@ class NmapsEngine:
             pass
 
     def remove_layer(self, lyr_id):
-        lyr = QgsMapLayerRegistry.instance().mapLayer(lyr_id[0])  # returns QgsMapLayer pointer
-        lyr_name = lyr.name()
-        tl = pickle_db.load_obj()
-        for k,v in tl.items():
-            if v == lyr_name:
-                del tl[k]
-                pickle_db.save_obj(tl)
+        if len(lyr_id) == 1:
+            lyr = QgsMapLayerRegistry.instance().mapLayer(lyr_id[0])  # returns QgsMapLayer pointer
+            lyr_name = lyr.name()
+            tl = pickle_db.load_obj()
+            for k,v in tl.items():
+                if v == lyr_name:
+                    del tl[k]
+            pickle_db.save_obj(tl)
+
 
 
     def nmap_connect(self):
