@@ -57,11 +57,4 @@ class TilesetDialogHelper:
             elif action == 'replace':
                 til.replace(self.item, tmp_file, tus.file_id())
 
-            self.progress_callback(tiling, "Kafelkowanie:".decode("utf-8"))
-            time.sleep(self.job_progres_request_iterval)
-            while tiling < 100:
-                tiling = til.job('progress')
-                print tiling
-                self.progress_callback(tiling, "Kafelkowanie:".decode("utf-8"))
-                time.sleep(self.job_progres_request_iterval)
         self.parent.nmap_connect()

@@ -33,6 +33,7 @@ import resources
 # Import the code for the dialog
 from nmaps_engine_dialog import NmapsEngineDialog
 import os.path
+from notifier import Notifier
 
 from nmaps.token import Token
 from nmaps.apikey import ApiKey
@@ -214,18 +215,6 @@ class NmapsEngine:
         self.visible = True
         # Run the dialog event loop
         self.nmap_connect()
-        tileset_req = Tilesets(self.nm_token)
-        notifications = tileset_req.jobs()
-        for notification in notifications:
-            if notification.get('status') == 'processing':
-                self.bar.pushInfo("Serwer NMap", "Kafelkowanie  %s %d %%".decode('utf-8')
-                                  % (notification.get('originalname'), notification.get('progress')))
-            if notification.get('status') == 'success':
-                self.bar.pushSuccess("Serwer NMap", "Ukończono %s".decode('utf-8') % (notification.get('originalname')))
-                tileset_req.hide(notification.get('job_id'))
-            if notification.get('status') == 'error':
-                self.bar.pushCritical("Serwer NMap", "Błąd %s".decode('utf-8') % (notification.get('originalname')))
-                tileset_req.hide(notification.get('job_id'))
         result = self.dlg.exec_()
         # See if OK was pressed
         if result:
@@ -292,6 +281,12 @@ class NmapsEngine:
             self.bar.clearWidgets()
             self.bar.pushSuccess("Serwer NMap", "Połączono i pobrano listę zestawów".decode('utf-8'))
 
+            self.notif = Notifier(self.iface)
+            QObject.connect(self.notif, SIGNAL("changed()"), self.add_notif)
+            self.notif.start()
+            
+
+
     def item_click(self, item):
         current = item.listWidget().itemWidget(item)
         item_id    = current.getTextUp()
@@ -300,6 +295,10 @@ class NmapsEngine:
 
     def create_nmap(self):
         TilesetCreateDialog(self).dlg()
+
+    def add_notif(self, notif):
+        self.bar.pushSuccess("Serwer NMap", "test".decode('utf-8'))
+
 
 
 

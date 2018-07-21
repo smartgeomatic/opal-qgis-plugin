@@ -39,7 +39,6 @@ class ApiKey:
 
     def set(self, apikey):
         apikey_file = open(self._apikey_file, 'w')
-        print self.encrypt(apikey.strip())
         apikey_file.write(self.encrypt(apikey.strip()))
         apikey_file.close()
 
