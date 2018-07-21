@@ -281,10 +281,9 @@ class NmapsEngine:
             self.bar.clearWidgets()
             self.bar.pushSuccess("Serwer NMap", "Połączono i pobrano listę zestawów".decode('utf-8'))
 
-            self.notif = Notifier(self.iface)
-            QObject.connect(self.notif, SIGNAL("changed()"), self.add_notif)
-            self.notif.start()
-            
+            self.timer = QTimer()
+            self.timer.timeout.connect(self.add_notif)
+            self.timer.start(7000)
 
 
     def item_click(self, item):
@@ -296,8 +295,23 @@ class NmapsEngine:
     def create_nmap(self):
         TilesetCreateDialog(self).dlg()
 
-    def add_notif(self, notif):
-        self.bar.pushSuccess("Serwer NMap", "test".decode('utf-8'))
+    def add_notif(self):
+        tileset_req = Tilesets(self.nm_token)
+        notifications = tileset_req.jobs()
+        for notification in notifications:
+            if notification.get('status') == 'waiting':
+                self.bar.pushInfo("Serwer NMap", "Oczekiwanie  %s %d %%".decode('utf-8')
+                                  % (notification.get('originalname'), notification.get('progress')))
+            if notification.get('status') == 'processing':
+                self.bar.pushInfo("Serwer NMap", "Kafelkowanie  %s %d %%".decode('utf-8')
+                                  % (notification.get('originalname'), notification.get('progress')))
+            if notification.get('status') == 'success':
+                self.bar.pushSuccess("Serwer NMap", "Ukończono %s".decode('utf-8') % (notification.get('originalname')))
+                self.nmap_connect()
+                tileset_req.hide(notification.get('job_id'))
+            if notification.get('status') == 'error':
+                self.bar.pushCritical("Serwer NMap", "Błąd %s".decode('utf-8') % (notification.get('originalname')))
+                tileset_req.hide(notification.get('job_id'))
 
 
 

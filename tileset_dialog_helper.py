@@ -46,7 +46,6 @@ class TilesetDialogHelper:
         return tus
 
     def send_tileset(self,tmp_path, action):
-        tiling = 1
         with open(tmp_path, 'rb') as tp:
             tus = self.upload_tileset(tp)
             til = Tilesets(self.parent.nm_token)
