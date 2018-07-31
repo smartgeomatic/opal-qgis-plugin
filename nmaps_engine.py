@@ -283,7 +283,7 @@ class NmapsEngine:
 
             self.timer = QTimer()
             self.timer.timeout.connect(self.add_notif)
-            self.timer.start(7000)
+            self.timer.start(4000)
 
 
     def item_click(self, item):
@@ -298,6 +298,7 @@ class NmapsEngine:
     def add_notif(self):
         tileset_req = Tilesets(self.nm_token)
         notifications = tileset_req.jobs()
+        self.bar.clearWidgets()
         for notification in notifications:
             if notification.get('status') == 'waiting':
                 self.bar.pushInfo("Serwer NMap", "Oczekiwanie  %s %d %%".decode('utf-8')
@@ -312,6 +313,7 @@ class NmapsEngine:
             if notification.get('status') == 'error':
                 self.bar.pushCritical("Serwer NMap", "Błąd %s".decode('utf-8') % (notification.get('originalname')))
                 tileset_req.hide(notification.get('job_id'))
+
 
 
 
