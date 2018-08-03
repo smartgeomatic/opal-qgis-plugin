@@ -133,3 +133,5 @@ class TilesetCommonDialog(QDialog,TilesetDialogHelper):
         else:
             self.close()
         self.parent.iface.mainWindow().show()
+        self.parent.iface.mainWindow().setWindowState(self.parent.iface.mainWindow().windowState() & ~Qt.WindowMinimized | Qt.WindowActive)
+        self.parent.iface.mainWindow().activateWindow()
