@@ -132,4 +132,4 @@ class TilesetCommonDialog(QDialog,TilesetDialogHelper):
             self.close()
         else:
             self.close()
-
+        self.parent.iface.mainWindow().show()

@@ -1,4 +1,4 @@
-from qgis.core import QgsMessageLog, QgsMapLayerRegistry
+from qgis.core import QgsMessageLog, QgsMapLayerRegistry, QgsMapLayer
 from nmaps.nm_tus import NmTus
 from nmaps.tilesets import Tilesets
 import nm_config
@@ -25,8 +25,10 @@ class TilesetDialogHelper:
         return layer
 
     def _is_valid_layer(self, layer):
-        if "csv" in layer.metadata() or "Shapefile" in layer.metadata() or "json" in layer.metadata():
+        if layer.type() == QgsMapLayer.VectorLayer:
             return True
+        else:
+            return False
 
     def get_layers(self):
         layers = self.parent.iface.legendInterface().layers()

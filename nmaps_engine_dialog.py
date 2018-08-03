@@ -23,7 +23,7 @@
 
 import os
 
-from PyQt4 import QtGui, uic
+from PyQt4 import QtGui, uic, QtCore
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'nmaps_engine_dialog_base.ui'))
@@ -38,4 +38,5 @@ class NmapsEngineDialog(QtGui.QDialog, FORM_CLASS):
         # self.<objectname>, and you can use autoconnect slots - see
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
+        #self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         self.setupUi(self)
