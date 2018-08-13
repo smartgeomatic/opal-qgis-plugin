@@ -181,7 +181,7 @@ class NmapsEngine:
         icon_path = ':/plugins/NmapsEngine/icon.png'
         self.add_action(
             icon_path,
-            text=self.tr(u'NMap'),
+            text=self.tr(u'Opal Qgis Plugin'),
             callback=self.run,
             parent=self.iface.mainWindow())
 
