@@ -9,6 +9,7 @@ from nmaps.nm_tus import NmTus
 from nmaps.tilesets import Tilesets
 from nmaps import pickle_db
 from tileset_dialog_helper import TilesetDialogHelper
+import nm_config
 import os
 import time
 

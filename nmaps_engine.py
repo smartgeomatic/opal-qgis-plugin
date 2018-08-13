@@ -78,10 +78,10 @@ class NmapsEngine:
 
         # Declare instance attributes
         self.actions = []
-        self.menu = self.tr(u'&Nmaps Engine')
+        self.menu = self.tr(u'&Opal Qgis Plugin')
         # TODO: We are going to let the user set this up in a future iteration
-        self.toolbar = self.iface.addToolBar(u'NmapsEngine')
-        self.toolbar.setObjectName(u'NmapsEngine')
+        self.toolbar = self.iface.addToolBar(u'Opal Qgis Plugin')
+        self.toolbar.setObjectName(u'Opal Qgis Plugin')
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -199,7 +199,7 @@ class NmapsEngine:
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
             self.iface.removePluginMenu(
-                self.tr(u'&Nmaps Engine'),
+                self.tr(u'&Opal Qgis Plugin'),
                 action)
             self.iface.removeToolBarIcon(action)
         # remove the toolbar
