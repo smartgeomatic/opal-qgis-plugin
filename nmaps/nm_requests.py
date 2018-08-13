@@ -7,7 +7,7 @@ class NmRequests(object):
         self._headers  = {'Content-Type': 'application/json'}
         self._body     = {}
         self._endpoint = None
-        self._baseurl  = 'https://api.smartgeomatic.eu/api/v1/'
+        self._baseurl  = 'https://api.nmaps.pl/api/v1/'
 
     @property
     def endpoint(self):
