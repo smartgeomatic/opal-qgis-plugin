@@ -1,7 +1,6 @@
 from qgis.core import QgsMessageLog, QgsMapLayerRegistry, QgsMapLayer
 from nmaps.nm_tus import NmTus
 from nmaps.tilesets import Tilesets
-import nm_config
 import os
 import time
 
